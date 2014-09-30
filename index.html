@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>PhoneGap Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.2.0.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+//*********************************************************
+// Wait for Cordova to Load
+//*********************************************************
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+
+}
+
+
+//*********************************************************    
+    // Camera Capabilities
+    //********************************************************* 
+    var pictureSource;
+    var destinationType;
+    
+    function updateCameraStatus(status) {
+        $("#cameraStatus").empty();
+        $("#cameraStatus").append(status).trigger("create");
+    }
+    
+    function photoOnFail(message) {
+        updateCameraStatus("ERROR: " + message);
+    }
+    
+    
+    function onPhotoURISuccess(imageURI) {
+        $("#popImage").attr("src", imageURI);
+        $("#pictBox").empty();
+        $("#pictBox").append(imageURI).trigger("create");
+        updateCameraStatus("SUCCESS: Image loaded");
+        $("#popupPhoto").popup("open");
+    }
+
+    function capturePhoto() {
+        navigator.camera.getPicture(onPhotoURISuccess, photoOnFail, { quality: 50, destinationType: destinationType.FILE_URI });
+    }
+
+
+    //source could be Camera.PictureSourceType.PHOTOLIBRARY and SAVEDPHOTOALBUM, in Android, they are the same.
+    function getPhoto(source) {
+        updateCameraStatus("");        
+        navigator.camera.getPicture(onPhotoURISuccess, photoOnFail, { quality: 50, destinationType: destinationType.FILE_URI, sourceType: source });
+    }
+    
+    function getCameraReady() {
+        $("popupPhoto").popup("close");
+        updateCameraStatus("");
+        pictureSource   = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+    }
+</script>
+</head>
+<body>
+<!---------------------------------- Main Page --------------------------------------->
+<div data-role="page" id="main">
+    <div data-role="header" data-position="fixed">
+        <h1 id="appTitle"></h1>
+    </div>
+    <div data-role="content">   
+    <ul data-role="listview" data-inset="true" data-filter="true">
+        <li><a href="#cameraCap" data-transition="slide" onclick="getCameraReady();">Camera</a></li>
+    </ul>
+    </div>
+</div>
+
+<!---------------------------------- Camera ------------------------------------------>
+<div data-role="page" data-add-back-btn="true" back-btn-text="back" id="cameraCap">
+    <div data-role="header">
+        <h1>Camera</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#" onclick="capturePhoto();">Capture Photo</a></li>
+            <li><a href="#" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</a></li>
+        </ul>
+
+        <div class="mesgBox">
+            <h5 class="hlabel">Using camera.getPicture method</h5>
+            <ul class="smFont">
+                <li>For both of the above menu items, URI is used to retrieve the image.<br/>
+                    Along with each image, the corresponding URI is shown.
+                </li>
+            </ul>           
+        </div>
+
+            <div data-role="popup" id="popupPhoto" class="ui-content" data-theme="e" data-corners="false">
+                <h5 class="hlabel">Image URI</h5>
+                <p id="pictBox" class="content mesgBox"></p>
+                <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                <img class="popphoto" id="popImage" src="">
+            </div>
+
+    <div data-role="footer">
+        <div id="cameraStatus"></div>
+    </div>      
+</div>
+
+
+</body>
+</html>
