@@ -5,7 +5,7 @@
         versionCode = "10" 
         id        = "PSL"
         version   = "1.0.0">
-	<name>NetPoint</name>
+	<name>PSL</name>
 
 	<description>
 		PSL CLASS.
