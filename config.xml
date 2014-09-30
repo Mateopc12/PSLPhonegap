@@ -5,14 +5,21 @@
         versionCode = "10" 
         id        = "PSL"
         version   = "1.0.0">
-	<name>PSL</name>
+	<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+		xmlns:android   = "http://schemas.android.com/apk/res/android"
+        versionCode = "10" 
+        id        = "PSL FIRST"
+        version   = "2.2.1">
+	<name>PSL_1</name>
 
 	<description>
-		PSL CLASS.
+		PSL
 	</description>
 
-	<author href="https://github.com/Mateopc12" email="mateopc12@gmail.com">
-		Mateo Parra
+	<author href="http://www.psl.com.co" email="psl@psl.com.co">
+		Psl Team
 	</author>
 
 	<!-- allow local pages -->
@@ -40,14 +47,59 @@
 	<preference name="target-device" value="handset" />
 	<preference name="prerendered-icon" value="true" />
 	<preference name="load-url-timeout" value="60000" />
-	
-	<preference name="stay-in-webview" value="false" />
-    <preference name="webviewbounce" value="true" />
+	<preference name="webviewbounce" value="false" />
 	<preference name="show-splash-screen-spinner" value="false" />
+	<preference name="orientation" value="portrait" />
 	<preference name="BackgroundColor" value="0x00FFFFFF" />
 	<preference name="backgroundColor" value="0xff0000ff"/>
-	<preference name="DisallowOverscroll" value="true"/>
+	<preference name="target-device" value="handset" />
 	<preference name="splashScreenDelay" value="7000" />
 	
+	<preference name="android-minSdkVersion" value="16" /> 
+
+	<gap:config-file platform="android" parent="/manifest">
+		<supports-screens
+			   android:xlargeScreens="false"
+			   android:largeScreens="false" />
+	</gap:config-file>
+
+	<!--<preference name="stay-in-webview" value="true" />-->
+	<gap:plugin name="org.apache.cordova.core.geolocation" />
+	<gap:plugin name="com.phonegap.plugins.PushPlugin"/>
+	<!--<gap:plugin name="org.apache.cordova.battery-status" />-->
+	<gap:plugin name="org.apache.cordova.camera" />
+	<!--<gap:plugin name="org.apache.cordova.media-capture" />-->
+	<gap:plugin name="org.apache.cordova.console" />
+	<!--<gap:plugin name="org.apache.cordova.contacts" />-->
+	<gap:plugin name="org.apache.cordova.device" />
+	<!--<gap:plugin name="org.apache.cordova.device-motion" />
 	
+	<gap:plugin name="org.apache.cordova.device-orientation" />-->
+	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.file-transfer" />
+	<gap:plugin name="org.apache.cordova.globalization" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
+	<!--<gap:plugin name="org.apache.cordova.media" />-->
+	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+	<!--<gap:plugin name="org.apache.cordova.vibration" />-->
+	<gap:plugin name="nl.x-services.plugins.ioswebviewcolor" />
+	<gap:plugin name="com.adobe.plugins.gaplugin" />
+
+	<feature name="GAPlugin" >
+		<param name="android-package" value="com.adobe.plugins.GAPlugin"/>
+	</feature>
+
+	<feature name="WebViewColor">
+		<param name="ios-package" value="WebViewColor" />
+	</feature>
+	<feature name="Geolocation">
+		<param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
+	</feature>
+	<feature name="Geolocation">
+		<param name="ios-package" value="CDVLocation" />
+	</feature>
+
+  
 </widget>
